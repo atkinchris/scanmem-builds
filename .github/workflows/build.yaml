@@ -23,3 +23,8 @@ jobs:
           ./autogen.sh
           ./configure --prefix=/usr
           make
+      - name: Upload scanmem binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: scanmem
+          path: scanmem
