@@ -1,0 +1,19 @@
+name: Build scanmem
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - name: Checkout scanmem repository
+        uses: actions/checkout@v4
+        with:
+          repository: scanmem/scanmem
+      - name: Build scanmem
+        run: |
+          ./autogen.sh
+          ./configure --prefix=/usr
+          make
