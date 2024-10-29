@@ -17,8 +17,7 @@ jobs:
           repository: scanmem/scanmem
       - name: Install dependencies
         run: |
-          pacman -Syu --noconfirm
-          pacman -S --noconfirm intltoolize
+          pacman -Syu --noconfirm intltool
       - name: Build scanmem
         run: |
           ./autogen.sh
