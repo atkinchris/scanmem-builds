@@ -2,9 +2,12 @@ name: Build scanmem
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+    inputs:
+      ref:
+        description: scanmem branch or tag
+        required: true
+        default: main
+        type: string
 
 jobs:
   build:
@@ -15,6 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: scanmem/scanmem
+          ref: ${{ github.event.inputs.ref }}
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm intltool
@@ -38,13 +42,13 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout build repository
-        uses: actions/checkout@v4
       - name: Download scanmem binary
         uses: actions/download-artifact@v4
         with:
           name: scanmem
       - name: Create release
-        run: gh release create scanmem
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
+        with:
+          name: scanmem@${{ github.event.inputs.ref }}
+          files: scanmem
+          tag_name: ${{ github.event.inputs.ref }}
