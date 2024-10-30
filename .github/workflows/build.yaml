@@ -29,5 +29,4 @@ jobs:
           name: scanmem
           path: |
             scanmem
-            .deps
-            .libs
+            .libs/scanmem

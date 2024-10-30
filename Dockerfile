@@ -11,6 +11,5 @@ RUN ./autogen.sh && \
 
 FROM scratch AS export
 
-COPY --from=builder /app/scanmem .
-COPY --from=builder /app/.deps .deps
-COPY --from=builder /app/.libs .libs
+COPY --from=builder /app/scanmem scanmem
+COPY --from=builder /app/.libs/scanmem .libs/scanmem
